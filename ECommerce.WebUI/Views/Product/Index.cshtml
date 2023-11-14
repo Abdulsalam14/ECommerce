@@ -1,0 +1,48 @@
+﻿@model ProductListViewModel
+
+@{
+    var filter1 = Model.FilterAz == null || Model.FilterAz == "z-a" ? "a-z" : "z-a";
+    var filter2 = Model.FilterHl == null || Model.FilterHl=="h-l"? "l-h" : "h-l";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-1">
+            <a href="/product/index?category=@Model.CategoryId&Filter_Az=@filter1" class="btn btn-primary">@filter1</a>
+        </div>
+        <div class="col-1">
+            <a href="/product/index?category=@Model.CategoryId&Filter_Hl=@filter2" class="btn btn-primary">@filter2</a>
+        </div>
+    </div>
+</div>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th> ProductName</th>
+            <th>UnitPrice</th>
+            <th>UnitsInStock</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Products)
+        {
+            <tr>
+                <td>
+                    @item.ProductName
+                </td>
+                <td>
+                    @item.UnitPrice
+                </td>
+                <td>
+                    @item.UnitsInStock
+                </td>
+                <td>
+                    <a class="btn btn-xs btn-success">Add To Cart</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
