@@ -16,15 +16,21 @@ namespace ECommerce.WebUI.Controllers
         }
 
         // GET: ProductController
-        public async Task<ActionResult> Index(int category=0,string filter_az=null!,string filter_hl=null!)
+        public async Task<ActionResult> Index(int page=1,int category=0,string filter_az=null!,string filter_hl=null!)
         {
             var products=await _productService.GetAllByCategoryAndFilter(category,filter_az,filter_hl);
+
+            int pageSize = 10;
+
             var model = new ProductListViewModel
             {
-                Products = products,
+                Products = products.Skip((page - 1) * pageSize).Take(pageSize).ToList(),
                 CategoryId = category,
                 FilterAz = filter_az,
-                FilterHl = filter_hl
+                FilterHl = filter_hl,
+                PageCount = (int)Math.Ceiling(products.Count / (double)pageSize),
+                PageSize = pageSize,
+                CurrentPage = page
             };
             return View(model);
         }

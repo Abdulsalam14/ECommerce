@@ -43,8 +43,16 @@ namespace ECommerce.Business.Concrete
         {
             var products = await GetAllByCategory(categoryId);
 
-            if (filterAz == "a-z") products = products.OrderBy(p => p.ProductName).ToList();
-            else if (filterAz == "z-a") products = products.OrderByDescending(p => p.ProductName).ToList();
+            if (filterAz == "a-z")
+            {
+                products = products.OrderBy(p => p.ProductName).ToList();
+                filterAz = "z-a";
+            }
+            else if (filterAz == "z-a")
+            {
+                products = products.OrderByDescending(p => p.ProductName).ToList();
+                filterAz = "a-z";
+            }
 
             if (filterHl == "l-h") products = products.OrderBy(p => p.UnitPrice).ToList();
             else if(filterHl=="h-l")products=products.OrderByDescending(p => p.UnitPrice).ToList();

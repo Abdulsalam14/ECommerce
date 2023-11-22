@@ -1,17 +1,17 @@
 ﻿@model ProductListViewModel
 
 @{
-    var filter1 = Model.FilterAz == null || Model.FilterAz == "z-a" ? "a-z" : "z-a";
-    var filter2 = Model.FilterHl == null || Model.FilterHl=="h-l"? "l-h" : "h-l";
+    var filter1 = Model.FilterAz == null ||Model.FilterAz== "z-a"? "a-z" : "z-a";
+    var filter2 = Model.FilterHl == null ||Model.FilterHl=="h-l"? "l-h" : "h-l";
 }
 
 <div class="container">
     <div class="row">
         <div class="col-1">
-            <a href="/product/index?category=@Model.CategoryId&Filter_Az=@filter1" class="btn btn-primary">@filter1</a>
+            <a href="/product/index?page=@Model.CurrentPage&category=@Model.CategoryId&Filter_Az=@filter1" class="btn btn-primary">@filter1</a>
         </div>
         <div class="col-1">
-            <a href="/product/index?category=@Model.CategoryId&Filter_Hl=@filter2" class="btn btn-primary">@filter2</a>
+            <a href="/product/index?page=@Model.CurrentPage&category=@Model.CategoryId&Filter_Hl=@filter2" class="btn btn-primary">@filter2</a>
         </div>
     </div>
 </div>
@@ -40,9 +40,24 @@
                     @item.UnitsInStock
                 </td>
                 <td>
-                    <a class="btn btn-xs btn-success">Add To Cart</a>
+                    <a class="btn btn-xs btn-success"
+                       href="/Cart/AddToCart?productId=@item.ProductId&page=@Model.CurrentPage&category=@Model.CategoryId" &filteraz="@filter1" &filterhl="@filter2">Add To Cart</a>
                 </td>
+                @if (item.HasAdded)
+                {
+                    <td>
+                        <a class="btn btn-xs btn-danger" href="/Cart/Remove?productId=@item.ProductId&page=@Model.CurrentPage&category=@Model.CategoryId" &filteraz="@filter1" &filterhl="@filter2">Remove</a>
+                    </td>
+                }
             </tr>
         }
     </tbody>
 </table>
+
+<product-list-pager current-category="@Model.CategoryId"
+                    current-page="@Model.CurrentPage"
+                    page-count="@Model.PageCount"
+                    page-size="@Model.PageSize"
+                    filter-az="@filter1" 
+                    filter-hl="@filter2">
+</product-list-pager>
