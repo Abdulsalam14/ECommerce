@@ -20,12 +20,12 @@ namespace ECommerce.Business.Concrete
 
         public async Task Add(Product product)
         {
-           await _productDal.Add(product);
+            await _productDal.Add(product);
         }
 
         public async Task Delete(int id)
         {
-            var item=await _productDal.Get(p=>p.ProductId == id);
+            var item = await _productDal.Get(p => p.ProductId == id);
             await _productDal.Delete(item);
         }
 
@@ -55,14 +55,19 @@ namespace ECommerce.Business.Concrete
             }
 
             if (filterHl == "l-h") products = products.OrderBy(p => p.UnitPrice).ToList();
-            else if(filterHl=="h-l")products=products.OrderByDescending(p => p.UnitPrice).ToList();
+            else if (filterHl == "h-l") products = products.OrderByDescending(p => p.UnitPrice).ToList();
 
             return products;
         }
 
+        public async Task<List<Product>> Search(string key)
+        {
+            return await _productDal.GetList(p=>p.ProductName.Contains(key));
+        }
+
         public async Task<Product> GetById(int id)
         {
-            return await _productDal.Get(p=>p.ProductId==id);
+            return await _productDal.Get(p => p.ProductId == id);
         }
 
         public async Task Update(Product product)

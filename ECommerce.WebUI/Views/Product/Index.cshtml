@@ -1,8 +1,8 @@
 ﻿@model ProductListViewModel
 
 @{
-    var filter1 = Model.FilterAz == null ||Model.FilterAz== "z-a"? "a-z" : "z-a";
-    var filter2 = Model.FilterHl == null ||Model.FilterHl=="h-l"? "l-h" : "h-l";
+    var filter1 = Model.FilterAz == null || Model.FilterAz == "z-a" ? "a-z" : "z-a";
+    var filter2 = Model.FilterHl == null || Model.FilterHl == "h-l" ? "l-h" : "h-l";
 }
 
 <div class="container">
@@ -58,6 +58,6 @@
                     current-page="@Model.CurrentPage"
                     page-count="@Model.PageCount"
                     page-size="@Model.PageSize"
-                    filter-az="@filter1" 
+                    filter-az="@filter1"
                     filter-hl="@filter2">
 </product-list-pager>

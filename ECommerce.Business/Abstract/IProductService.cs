@@ -12,7 +12,7 @@ namespace ECommerce.Business.Abstract
         Task<List<Product>> GetAll();
         Task<List<Product>> GetAllByCategory(int categoryId);
         Task<List<Product>> GetAllByCategoryAndFilter(int categoryId, string filterAz, string filterHl);
-
+        Task<List<Product>> Search(string key);
         Task Add(Product product);
         Task Update(Product product);
         Task Delete(int id);

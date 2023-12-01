@@ -22,6 +22,8 @@ namespace ECommerce.WebUI.Controllers
 
             int pageSize = 10;
 
+
+
             var model = new ProductListViewModel
             {
                 Products = products.Skip((page - 1) * pageSize).Take(pageSize).ToList(),
@@ -33,6 +35,14 @@ namespace ECommerce.WebUI.Controllers
                 CurrentPage = page
             };
             return View(model);
+        }
+
+
+        public async Task<ActionResult> Search(string key)
+        {
+            var products = await _productService.Search(key);
+
+            return Json(products);
         }
 
         // GET: ProductController/Details/5

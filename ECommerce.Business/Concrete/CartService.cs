@@ -33,5 +33,7 @@ namespace ECommerce.Business.Concrete
         {
             cart.CartLines.Remove(cart.CartLines.FirstOrDefault(c => c.Product.ProductId == productId));
         }
+
+
     }
 }
